@@ -10,7 +10,9 @@ export default {
     searchTerms: '',
     page: 1,
     numberOfResults: 16,
-    archive_hats: null
+    archive_hats: null,
+    modalTitle: '',
+    modalImage: ''
   }),
 
   created() {
@@ -44,6 +46,11 @@ export default {
         this.fetchData(this.searchTerms+searchOptions)
       }
     },
+    setModalContent(metadata_storage_name) {
+      var current_item = this.archive_hats.value[this.archive_hats.value.findIndex(hat => hat.metadata_storage_name == metadata_storage_name)]
+      this.modalTitle = current_item.merged_content
+      this.modalImage = current_item.metadata_storage_path
+    },
     truncate(v) {
       const newline = v.indexOf('\n')
       return newline > 0 ? v.slice(0, newline) : v
@@ -67,8 +74,8 @@ export default {
   </nav>
   <div class="container my-4">
     <div class="row row-cols-1 row-cols-md-4">
-      <div class="col p-2" v-for="{metadata_storage_path, merged_content, metadata_storage_name} in archive_hats.value" :key="metadata_storage_name">
-        <div class="card">
+      <div class="col p-2" v-for="{metadata_storage_path, merged_content, metadata_storage_name} in archive_hats.value" :key="metadata_storage_name" @click="setModalContent(metadata_storage_name)">
+        <div class="card" data-bs-toggle="modal" data-bs-target="#hatPopout">
           <img :src="metadata_storage_path" class="card-img-top" :alt="merged_content">
           <div class="card-body">
             <h5 class="card-title">{{merged_content}}</h5>
@@ -94,4 +101,22 @@ export default {
       <span>All images and names owned by <a href="https://www.findlayhats.com/" target="_blank">Findlay Hats</a>, this is a passion project to make finding their cool hats easier.</span>
     </div>
   </footer>
+
+  <!-- Modal -->
+  <div class="modal fade" id="hatPopout" tabindex="-1" aria-labelledby="hatPopoutLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="hatPopoutLabel">{{modalTitle}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img class="d-block w-100" :src="modalImage" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
