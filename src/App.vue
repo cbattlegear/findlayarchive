@@ -58,7 +58,7 @@ export default {
 <template>
   <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand">Finlay Archive Search</a>
+      <a class="navbar-brand">Findlay Archive Search</a>
       <form class="d-flex" @submit.prevent="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" v-model="searchTerms">
         <button class="btn btn-outline-success" type="submit" @click="searchButton">Search</button>
