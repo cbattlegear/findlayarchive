@@ -1,5 +1,5 @@
 <script>
-const API_URL = `https://findlayarchive.search.windows.net/indexes/azureblob-index/docs?api-version=2021-04-30-Preview&search=`
+const API_URL = `https://findlayarchive.search.windows.net/indexes/findlayhats-index/docs?api-version=2021-04-30-Preview&search=`
 import Paginate from 'vuejs-paginate-next';
 
 export default {
@@ -39,17 +39,17 @@ export default {
       this.search()
     },
     search() {
-      var searchOptions = `&$count=true&$orderby=merged_content&$top=${this.numberOfResults}&$skip=${(this.page-1)*this.numberOfResults}`
+      var searchOptions = `&$count=true&$orderby=title&$top=${this.numberOfResults}&$skip=${(this.page-1)*this.numberOfResults}`
       if(this.searchTerms === '') {
         this.fetchData('*'+searchOptions)
       } else {
         this.fetchData(this.searchTerms+searchOptions)
       }
     },
-    setModalContent(metadata_storage_name) {
-      var current_item = this.archive_hats.value[this.archive_hats.value.findIndex(hat => hat.metadata_storage_name == metadata_storage_name)]
-      this.modalTitle = current_item.merged_content
-      this.modalImage = current_item.metadata_storage_path
+    setModalContent(hat_id) {
+      var current_item = this.archive_hats.value[this.archive_hats.value.findIndex(hat => hat.hat_id == hat_id)]
+      this.modalTitle = current_item.title
+      this.modalImage = current_item.image_url
     },
     truncate(v) {
       const newline = v.indexOf('\n')
@@ -74,11 +74,11 @@ export default {
   </nav>
   <div class="container my-4">
     <div class="row row-cols-1 row-cols-md-4">
-      <div class="col p-2" v-for="{metadata_storage_path, merged_content, metadata_storage_name} in archive_hats.value" :key="metadata_storage_name" @click="setModalContent(metadata_storage_name)">
+      <div class="col p-2" v-for="{image_url, title, hat_id} in archive_hats.value" :key="hat_id" @click="setModalContent(hat_id)">
         <div class="card" data-bs-toggle="modal" data-bs-target="#hatPopout">
-          <img :src="metadata_storage_path" class="card-img-top" :alt="merged_content">
+          <img :src="image_url" class="card-img-top" :alt="title">
           <div class="card-body">
-            <h5 class="card-title">{{merged_content}}</h5>
+            <h5 class="card-title">{{title}}</h5>
           </div>
         </div>
       </div>  
