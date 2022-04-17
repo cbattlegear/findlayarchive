@@ -12,7 +12,8 @@ export default {
     numberOfResults: 16,
     archive_hats: null,
     modalTitle: '',
-    modalImage: ''
+    modalImage: '',
+    modalTags: []
   }),
 
   created() {
@@ -50,6 +51,14 @@ export default {
       var current_item = this.archive_hats.value[this.archive_hats.value.findIndex(hat => hat.hat_id == hat_id)]
       this.modalTitle = current_item.title
       this.modalImage = current_item.image_url
+      this.modalTags = current_item.tags
+    },
+    formatTags() {
+      var tagHtml = '<span class="fw-bold">Current Tags:</span> '
+      this.modalTags.forEach(element => {
+        tagHtml += '<span class="badge bg-secondary">' + element + '</span> \n'
+      });
+      return tagHtml
     },
     truncate(v) {
       const newline = v.indexOf('\n')
@@ -112,6 +121,7 @@ export default {
         </div>
         <div class="modal-body">
           <img class="d-block w-100" :src="modalImage" />
+          <div v-html="formatTags()"></div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
