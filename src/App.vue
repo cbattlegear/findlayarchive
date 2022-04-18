@@ -103,7 +103,8 @@ export default {
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand">Findlay Archive Search</a>
-      <form class="d-flex" @submit.prevent="search">
+
+      <form class="input-group" style="width: 400px" @submit.prevent="search">
         <input
           class="form-control me-2"
           type="search"
@@ -211,6 +212,4 @@ export default {
       </div>
     </div>
   </div>
-
-  
 </template>
