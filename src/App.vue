@@ -144,7 +144,7 @@ export default {
           @click="setModalContent(hat_id)"
         >
           <div class="card" data-bs-toggle="modal" data-bs-target="#hatPopout">
-            <img :src="image_url" class="card-img-top" :alt="title" />
+            <img :src="image_url.replace('.jp', '-thumbnail.jp')" class="card-img-top" :alt="title" />
             <div class="card-body">
               <h5 class="card-title">{{ title }}</h5>
             </div>
