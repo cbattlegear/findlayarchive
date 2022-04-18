@@ -100,11 +100,10 @@ export default {
 </script>
 
 <template>
-  <nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
+  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-2 shadow">
       <a class="navbar-brand">Findlay Archive Search</a>
 
-      <form class="input-group" style="width: 400px" @submit.prevent="search">
+      <form class="input-group w-100"  @submit.prevent="search">
         <input
           class="form-control me-2"
           type="search"
@@ -120,7 +119,12 @@ export default {
           Search
         </button>
       </form>
-    </div>
+
+      <div class="navbar-nav">
+        <div class="nav-item text-nowrap">
+          <a class="nav-link px-3" href="mailto:cameron@findlayarchive.com">Contact</a>
+        </div>
+      </div>
   </nav>
   <div class="container-fluid">
     <div class="row">
