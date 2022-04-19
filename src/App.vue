@@ -100,7 +100,7 @@ export default {
 </script>
 
 <template>
-  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-2 shadow">
+  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-2 shadow navbar-expand-lg">
       <a class="navbar-brand">Findlay Archive Search</a>
 
       <form class="input-group w-100"  @submit.prevent="search">
@@ -125,10 +125,14 @@ export default {
           <a class="nav-link px-3" href="mailto:cameron@findlayarchive.com">Contact</a>
         </div>
       </div>
+        <button class="btn btn-primary navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#filterNav" aria-expanded="false" aria-controls="collapseExample">
+          Filters
+        </button>
+      
   </nav>
   <div class="container-fluid">
     <div class="row">
-    <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+    <nav id="filterNav" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse navbar-collapsed">
       <div class="position-sticky pt-3">
       
           <div class="form-check"
