@@ -47,7 +47,7 @@ export default {
 
 <template>
   <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-2 shadow navbar-expand-lg">
-      <a class="navbar-brand">Findlay Archive Search</a>
+      <router-link to="/" class="navbar-brand">Findlay Archive Search</router-link>
       <div class="navbar-nav">
         <div class="nav-item text-nowrap">
           <router-link class="nav-link px-3" to="/">Back to Search</router-link>

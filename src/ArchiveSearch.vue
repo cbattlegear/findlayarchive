@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-2 shadow navbar-expand-lg">
-      <a class="navbar-brand">Findlay Archive Search</a>
+      <a @click="clearsearch" class="navbar-brand">Findlay Archive Search</a>
 
       <form class="input-group w-100"  @submit.prevent="search">
         <input
@@ -24,15 +24,15 @@
           <a class="nav-link px-3" href="mailto:cameron@findlayarchive.com">Contact</a>
         </div>
       </div>
-        <button class="btn btn-primary navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#filterNav" aria-expanded="false" aria-controls="collapseExample">
+        <button class="navbar-toggler btn btn-outline-success m-2" type="button" @click="togglefilters" aria-expanded="false" aria-controls="filterNav">
           Filters
         </button>
       
   </nav>
   <div class="container-fluid">
     <div class="row">
-    <nav v-if="archive_hats" id="filterNav" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse navbar-collapsed">
-      <div class="position-sticky pt-3">
+    <nav id="filterNav" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse navbar-collapsed">
+      <div v-if="archive_hats" class="position-sticky pt-3">
       
           <div class="form-check"
             v-for="{ count, value } in archive_hats['@search.facets']['tags']"
@@ -47,7 +47,14 @@
       Loading...
     </div>
     <main v-if="archive_hats" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div class="row row-cols-1 row-cols-md-4">
+      <div v-if="archive_hats.value.length == 0" class="row row-cols-1">
+        <h2 class="text-center">No hats found</h2>
+        <video style="max-width: 500px" playsinline autoplay muted loop>
+          <source src="sidepop.webm" type="video/webm">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div v-else class="row row-cols-1 row-cols-md-4">
         <div
           class="col p-2"
           v-for="{ image_url, title, hat_id } in archive_hats.value"
@@ -62,18 +69,18 @@
           </div>
         </div>
       </div>
-      <nav aria-label="Page navigation example">
-      <paginate
-        v-model="page"
-        :page-count="pageCount"
-        :click-handler="search"
-        :prev-text="'Prev'"
-        :next-text="'Next'"
-        :container-class="'pagination justify-content-center'"
-        :page-class="'page-item'"
-      >
-      </paginate>
-    </nav>
+      <nav v-if="archive_hats.value.length != 0" aria-label="Page navigation example">
+        <paginate
+          v-model="page"
+          :page-count="pageCount"
+          :click-handler="search"
+          :prev-text="'Prev'"
+          :next-text="'Next'"
+          :container-class="'pagination justify-content-center'"
+          :page-class="'page-item'"
+        >
+        </paginate>
+      </nav>
     </main>
   </div>
   </div>
@@ -120,7 +127,7 @@
 <script>
 const API_URL = `https://findlayarchive.search.windows.net/indexes/findlayhats-index/docs?api-version=2021-04-30-Preview&search=`;
 import Paginate from "vuejs-paginate-next";
-import { Modal } from 'bootstrap';
+import { Modal, Collapse } from 'bootstrap';
 
 export default {
   components: {
@@ -137,6 +144,7 @@ export default {
     modalHatId: 0,
     checkedFilters: [],
     hatModal: null,
+    filterPane: null,
     loading: false
   }),
   beforeRouteLeave (to, from, next) {
@@ -209,6 +217,9 @@ export default {
     dismissmodal() {
       this.hatModal.hide();
     },
+    togglefilters() {
+      this.filterPane.toggle();
+    },
     formatTags() {
       var tagHtml = '<span class="fw-bold">Current Tags:</span> ';
       this.modalTags.forEach((element) => {
@@ -224,6 +235,18 @@ export default {
       }
       this.search()
     },
+    clearsearch() {
+      this.searchTerms = "";
+      this.clearfilters();
+      this.search();
+    },
+    clearfilters() {
+      this.checkedFilters.forEach(tag => {
+        var checkbox = document.querySelector('#filter-' + tag.replace(' ', '-'))
+        checkbox.checked = false;
+      });
+      this.checkedFilters = [];
+    },
     truncate(v) {
       const newline = v.indexOf("\n");
       return newline > 0 ? v.slice(0, newline) : v;
@@ -234,6 +257,7 @@ export default {
   },
   mounted() {
    this.hatModal = Modal.getOrCreateInstance(document.querySelector('#hatPopout'));
+   this.filterPane = Collapse.getOrCreateInstance(document.querySelector('#filterNav'));
   },
 };
 </script>
