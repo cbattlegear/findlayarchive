@@ -50,7 +50,7 @@
       <div v-if="archive_hats.value.length == 0" class="row row-cols-1">
         <h2 class="text-center">No hats found</h2>
         <video style="max-width: 500px" playsinline autoplay muted loop>
-          <source src="./sidepop.webm" type="video/webm">
+          <source src="./assets/sidepop.webm" type="video/webm">
           Your browser does not support the video tag.
         </video>
       </div>
@@ -131,7 +131,7 @@ import { Modal, Collapse } from 'bootstrap';
 
 export default {
   components: {
-    paginate: Paginate,
+    paginate: Paginate
   },
   data: () => ({
     searchTerms: "",
