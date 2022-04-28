@@ -1,6 +1,6 @@
 <template>
   <router-view />
-  <footer class="text-center bg-light text-muted">
+  <footer class="mt-auto text-center bg-light text-muted">
     <div class="text-center p-2">
       <span
         >All images and names owned by
