@@ -54,15 +54,15 @@
           Your browser does not support the video tag.
         </video>
       </div>
-      <div v-else class="row row-cols-1 row-cols-md-4">
+      <div v-else class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
         <div
           class="col p-2"
           v-for="{ image_url, title, hat_id } in archive_hats.value"
           :key="hat_id"
           @click="setModalContent(hat_id)"
         >
-          <div class="card">
-            <img :src="image_url.replace('.jp', '-thumbnail.jp')" class="card-img-top" :alt="title" />
+          <div class="card card-mid-width">
+            <img :src="image_url.replace('.jp', '-thumbnail.jp')" class="card-img-top card-loading-background" :alt="title"/>
             <div class="card-body">
               <h5 class="card-title">{{ title }}</h5>
             </div>
@@ -123,6 +123,19 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+  .card-min-width{
+    min-width: 230px;
+  }
+  
+  .card-loading-background {
+    min-height: 150px; 
+    background-image: url('./assets/hat_holder.png'); 
+    background-position: center center; 
+    background-repeat:no-repeat;
+  }
+</style>
 
 <script>
 const API_URL = `https://findlayarchive.search.windows.net/indexes/findlayhats-index/docs?api-version=2021-04-30-Preview&search=`;
