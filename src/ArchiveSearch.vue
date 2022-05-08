@@ -207,7 +207,7 @@ export default {
     },
     search() {
       this.loading = true;
-      var searchOptions = `&facet=tags&$count=true&$orderby=title&$top=${
+      var searchOptions = `&facet=tags&$count=true&$orderby=date_added desc,title&$top=${
         this.numberOfResults
       }&$skip=${(this.page - 1) * this.numberOfResults}` + this.filterOptions;
       if (this.searchTerms === "") {
