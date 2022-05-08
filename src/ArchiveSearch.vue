@@ -62,7 +62,7 @@
           @click="setModalContent(hat_id)"
         >
           <div class="card card-mid-width">
-            <img :src="image_url.replace('.jp', '-thumbnail.jp')" class="card-img-top card-loading-background" :alt="title"/>
+            <v-lazy-image src-placeholder="/hat_holder.png" :src="image_url.replace('.jp', '-thumbnail.jp')"  :alt="title"/>
             <div class="card-body">
               <h5 class="card-title">{{ title }}</h5>
             </div>
@@ -106,7 +106,7 @@
           ></button>
         </div>
         <div class="modal-body">
-          <v-lazy-image class="d-block w-100" :src="modalImage" src-placeholder="./assets/hatload.gif" />
+          <v-lazy-image v-if="hatModalVisable" class="d-block w-100" :src="modalImage" src-placeholder="/hatload.gif" />
           <div v-html="formatTags()"></div>
           <div><router-link :to="{name: 'hats', params: {id: modalHatId}}">Direct Link</router-link></div>
         </div>
@@ -131,7 +131,7 @@
 
   .card-loading-background {
     min-height: 150px; 
-    background-image: url('./assets/hat_holder.png'); 
+    background-image: url('/hat_holder.png'); 
     background-position: center center; 
     background-repeat:no-repeat;
   }
@@ -159,6 +159,7 @@ export default {
     modalHatId: 0,
     checkedFilters: [],
     hatModal: null,
+    hatModalVisable: false,
     filterPane: null,
     loading: false
   }),
@@ -227,10 +228,12 @@ export default {
       this.showmodal();
     },
     showmodal() {
+      this.hatModalVisable = true;
       this.hatModal.show();
     },
     dismissmodal() {
       this.hatModal.hide();
+      this.hatModalVisable = false;
     },
     togglefilters() {
       this.filterPane.toggle();
@@ -262,13 +265,6 @@ export default {
         checkbox.checked = false;
       });
       this.checkedFilters = [];
-    },
-    truncate(v) {
-      const newline = v.indexOf("\n");
-      return newline > 0 ? v.slice(0, newline) : v;
-    },
-    formatDate(v) {
-      return v.replace(/T|Z/g, " ");
     },
   },
   mounted() {
