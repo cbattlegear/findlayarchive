@@ -251,6 +251,7 @@ export default {
       } else {
         this.checkedFilters = this.checkedFilters.filter(item => item !== e.target.value)
       }
+      // Added to resolve issue #10, forces page one on filter click
       this.page = 1;
       this.search()
     },
