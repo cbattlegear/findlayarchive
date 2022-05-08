@@ -106,7 +106,7 @@
           ></button>
         </div>
         <div class="modal-body">
-          <img class="d-block w-100" :src="modalImage" />
+          <v-lazy-image class="d-block w-100" :src="modalImage" src-placeholder="./assets/hatload.gif" />
           <div v-html="formatTags()"></div>
           <div><router-link :to="{name: 'hats', params: {id: modalHatId}}">Direct Link</router-link></div>
         </div>
@@ -128,7 +128,7 @@
   .card-min-width{
     min-width: 230px;
   }
-  
+
   .card-loading-background {
     min-height: 150px; 
     background-image: url('./assets/hat_holder.png'); 
@@ -140,11 +140,13 @@
 <script>
 const API_URL = `https://findlayarchive.search.windows.net/indexes/findlayhats-index/docs?api-version=2021-04-30-Preview&search=`;
 import Paginate from "vuejs-paginate-next";
+import VLazyImage from "v-lazy-image";
 import { Modal, Collapse } from 'bootstrap';
 
 export default {
   components: {
-    paginate: Paginate
+    paginate: Paginate,
+    'v-lazy-image': VLazyImage
   },
   data: () => ({
     searchTerms: "",
@@ -246,6 +248,7 @@ export default {
       } else {
         this.checkedFilters = this.checkedFilters.filter(item => item !== e.target.value)
       }
+      this.page = 1;
       this.search()
     },
     clearsearch() {
