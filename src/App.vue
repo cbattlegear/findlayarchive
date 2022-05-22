@@ -10,3 +10,9 @@
     </div>
   </footer>
 </template>
+
+<script>
+export default {
+  title: 'Search'
+}
+</script>

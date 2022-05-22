@@ -14,7 +14,6 @@ export default {
     tags: [],
     placeholder: "/hatload.gif"
   }),
-
   created() {
     // fetch on init
     this.fetchData();
@@ -32,6 +31,11 @@ export default {
       this.title = archive_hat.title
       this.image_url = archive_hat.image_url
       this.tags = archive_hat.tags
+      window.document.title = `${this.title} | Findlay Archive`
+      var meta = document.createElement('meta');
+      meta.setAttribute('property', 'og:image');
+      meta.setAttribute('content', this.image_url);
+      document.getElementsByTagName('head')[0].appendChild(meta);
     },
     formatTags() {
       var tagHtml = '<span class="fw-bold">Current Tags:</span> ';

@@ -142,8 +142,9 @@ const API_URL = `https://findlayarchive.search.windows.net/indexes/findlayhats-i
 import Paginate from "vuejs-paginate-next";
 import VLazyImage from "v-lazy-image";
 import { Modal, Collapse } from 'bootstrap';
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   components: {
     paginate: Paginate,
     'v-lazy-image': VLazyImage
@@ -163,6 +164,9 @@ export default {
     filterPane: null,
     loading: false
   }),
+  beforeRouteEnter (to, from) {
+    document.title = "Search | Findlay Archive"
+  },
   beforeRouteLeave (to, from, next) {
     if(this.hatModal._isShown){
       this.hatModal.hide()
@@ -272,5 +276,5 @@ export default {
    this.hatModal = Modal.getOrCreateInstance(document.querySelector('#hatPopout'));
    this.filterPane = Collapse.getOrCreateInstance(document.querySelector('#filterNav'));
   },
-};
+});
 </script>
