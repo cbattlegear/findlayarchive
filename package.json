@@ -13,6 +13,7 @@
     "v-lazy-image": "^2.1.1",
     "vue": "^3.2.31",
     "vue-load-image": "^1.1.0",
+    "vue-meta": "^3.0.0-alpha.2",
     "vue-progressive-image": "^4.0.0-beta.1",
     "vue-router": "^4.0.14",
     "vuejs-paginate-next": "^1.0.2"

@@ -164,6 +164,9 @@ export default defineComponent({
     filterPane: null,
     loading: false
   }),
+  beforeRouteEnter (to, from) {
+    document.title = "Search | Findlay Archive"
+  },
   beforeRouteLeave (to, from, next) {
     if(this.hatModal._isShown){
       this.hatModal.hide()
