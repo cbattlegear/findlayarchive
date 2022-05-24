@@ -4,7 +4,7 @@
 
       <form class="input-group w-100"  @submit.prevent="search">
         <input
-          class="form-control me-2"
+          class="form-control"
           type="search"
           placeholder="Search"
           aria-label="Search"
@@ -20,6 +20,9 @@
       </form>
 
       <div class="navbar-nav">
+        <div class="nav-item text-nowrap">
+          <router-link class="nav-link px-3" to="/designs">Designs</router-link>
+        </div>
         <div class="nav-item text-nowrap">
           <a class="nav-link px-3" href="mailto:cameron@findlayarchive.com">Contact</a>
         </div>
@@ -170,6 +173,8 @@ export default defineComponent({
   beforeRouteLeave (to, from, next) {
     if(this.hatModal._isShown){
       this.hatModal.hide()
+      next()
+    } else {
       next()
     }
   },
