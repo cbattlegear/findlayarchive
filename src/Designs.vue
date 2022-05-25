@@ -32,14 +32,15 @@ export default {
       window.document.title = `Designs | Findlay Archive`
     },
     format_section_id(category) {
-      return category;
+      return category.replace(' ', '-').replace('/', '-').toLowerCase();
     },
   },
 };
 </script>
 
 <template>
-  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-2 shadow navbar-expand-lg">
+<section id="top"></section>
+  <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-2 shadow navbar-expand-lg">
     <router-link to="/" class="navbar-brand">Findlay Archive Search</router-link>
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
@@ -60,7 +61,9 @@ export default {
       </nav>
       <div class="row mt-2" v-for="{ design_category, designs } in design_list.design_groups" :key="design_category">
         <section :id="format_section_id(design_category)">
-          <h2>{{ design_category }}</h2>
+          <div class="d-flex justify-content-between">
+            <h2>{{ design_category }}</h2><a class="nav-item m-2" href="#top">Back to top</a>
+          </div>
           <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
             <div class="col p-2" v-for="{ design_name, design_image, aka_names } in designs" :key="design_name">
 
