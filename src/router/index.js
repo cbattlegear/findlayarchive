@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import ArchiveSearch from "@/ArchiveSearch.vue";
 import Hat from "@/Hat.vue";
+import Designs from "@/Designs.vue";
 
 const routes = [
   {
@@ -12,6 +13,10 @@ const routes = [
     path: '/hats/:id', 
     name: "hats",
     component: Hat },
+  { 
+    path: '/designs', 
+    name: "designs",
+    component: Designs },
 ];
 
 const router = createRouter({
