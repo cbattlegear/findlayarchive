@@ -67,7 +67,7 @@ export default {
           <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
             <div class="col p-2" v-for="{ design_name, design_image, aka_names } in designs" :key="design_name">
 
-              <div class="card card-mid-width">
+              <div class="card">
                 <v-lazy-image src-placeholder="/hat_holder.png" :src="IMAGE_ROOT + design_image" :alt="design_name" />
                 <div class="card-img-overlay">
                   <h5 class="card-title"
