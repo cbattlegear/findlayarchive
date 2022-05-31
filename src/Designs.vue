@@ -55,7 +55,7 @@ export default {
 
   </nav>
   <div v-if="design_list" class="container">
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <main>
       <nav class="nav">
         <span class="p-2">Jump to:</span><a v-for="{ design_category } in design_list.design_groups" :href="'#' + format_section_id(design_category)" class="nav-link" >{{design_category}}</a>
       </nav>
