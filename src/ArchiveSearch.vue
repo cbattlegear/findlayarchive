@@ -1,6 +1,8 @@
 <template>
   <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-2 shadow navbar-expand-lg">
-      <a @click="clearsearch" class="navbar-brand">Findlay Archive Search</a>
+      <a @click="clearsearch" class="navbar-brand">
+        <img src="./assets/logo.png" alt="Findlay Archive" height="60"/>
+      </a>
 
       <form class="input-group w-100"  @submit.prevent="search">
         <input
