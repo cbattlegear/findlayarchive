@@ -173,6 +173,7 @@ export default defineComponent({
   }),
   beforeRouteEnter (to, from) {
     document.title = "Search | Findlay Archive"
+    appInsights.trackPageView();
   },
   beforeRouteLeave (to, from, next) {
     if(this.hatModal._isShown){

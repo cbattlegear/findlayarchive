@@ -30,6 +30,7 @@ export default {
         })
       ).json();
       window.document.title = `Designs | Findlay Archive`
+      appInsights.trackPageView();
     },
     format_section_id(category) {
       return category.replace(' ', '-').replace('/', '-').toLowerCase();
