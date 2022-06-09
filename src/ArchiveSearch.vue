@@ -148,6 +148,7 @@ import Paginate from "vuejs-paginate-next";
 import VLazyImage from "v-lazy-image";
 import { Modal, Collapse } from 'bootstrap';
 import { defineComponent } from "vue";
+import { uuid } from 'vue-uuid';
 
 export default defineComponent({
   components: {
@@ -167,10 +168,12 @@ export default defineComponent({
     hatModal: null,
     hatModalVisable: false,
     filterPane: null,
-    loading: false
+    loading: false,
+    searchId: null
   }),
   beforeRouteEnter (to, from) {
     document.title = "Search | Findlay Archive"
+    appInsights.trackPageView();
   },
   beforeRouteLeave (to, from, next) {
     if(this.hatModal._isShown){
@@ -203,6 +206,7 @@ export default defineComponent({
   methods: {
     async fetchData(search) {
       const url = `${API_URL}${search}`;
+      this.searchId = uuid.v4();
       this.archive_hats = await (
         await fetch(url, {
           headers: {
@@ -211,6 +215,14 @@ export default defineComponent({
         })
       ).json();
       this.loading = false
+      appInsights.trackEvent("Search", {
+	      SearchServiceName: "findlayarchive",
+	      SearchId: this.searchId,
+	      IndexName: "findlayhats-index",
+	      QueryTerms: search,
+	      ResultCount: this.archive_hats["@odata.count"],
+	      ScoringProfile: "default"
+      });
     },
     searchButton() {
       this.page = 1;
@@ -237,6 +249,11 @@ export default defineComponent({
       this.modalTags = current_item.tags;
       this.modalHatId = current_item.hat_id;
       this.showmodal();
+      appInsights.trackEvent("Click", {
+        SearchServiceName: "findlayarchive",
+        SearchId: this.searchId,
+        ClickedDocId: current_item.hat_id
+      });
     },
     showmodal() {
       this.hatModalVisable = true;
