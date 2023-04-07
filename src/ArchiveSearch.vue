@@ -173,7 +173,6 @@ export default defineComponent({
   }),
   beforeRouteEnter (to, from) {
     document.title = "Search | Findlay Archive"
-    appInsights.trackPageView();
   },
   beforeRouteLeave (to, from, next) {
     if(this.hatModal._isShown){
@@ -215,14 +214,6 @@ export default defineComponent({
         })
       ).json();
       this.loading = false
-      appInsights.trackEvent("Search", {
-	      SearchServiceName: "findlayarchive",
-	      SearchId: this.searchId,
-	      IndexName: "findlayhats-index",
-	      QueryTerms: search,
-	      ResultCount: this.archive_hats["@odata.count"],
-	      ScoringProfile: "default"
-      });
     },
     searchButton() {
       this.page = 1;
@@ -249,11 +240,6 @@ export default defineComponent({
       this.modalTags = current_item.tags;
       this.modalHatId = current_item.hat_id;
       this.showmodal();
-      appInsights.trackEvent("Click", {
-        SearchServiceName: "findlayarchive",
-        SearchId: this.searchId,
-        ClickedDocId: current_item.hat_id
-      });
     },
     showmodal() {
       this.hatModalVisable = true;

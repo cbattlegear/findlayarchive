@@ -36,7 +36,6 @@ export default {
       meta.setAttribute('property', 'og:image');
       meta.setAttribute('content', this.image_url);
       document.getElementsByTagName('head')[0].appendChild(meta);
-      appInsights.trackPageView();
     },
     formatTags() {
       var tagHtml = '<span class="fw-bold">Current Tags:</span> ';
